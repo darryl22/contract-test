@@ -155,7 +155,7 @@
     </div>
 
     <p class="mt-5">SIGNED by the consumer</p>
-    <p class="fw-bold">{{request.user.first_name}} {{request.user.last_name}}</p>
+    <p class="fw-bold">Darryl Mbatia</p>
     <button class="btn btn-primary notprintable" data-bs-toggle="modal" data-bs-target="#consumerModal">sign</button><br>
     <img src="" alt="" id="consumerSignatureImage">
 
@@ -180,7 +180,6 @@
     <p class="fw-bold">Nairobi.</p>
     <button class="btn btn-dark notprintable" onclick="window.print()">Save copy</button>
     <form action="" method="post" class="notprintable" id="submitSignatures">
-        {% csrf_token %}
         <input type="hidden" name="suppliersignInput" style="display: none;" id="suppliersignInput">
         <input type="hidden" name="consumersignInput" style="display: none;" id="consumersignInput">
         <input type="submit" value="Confirm" class="btn btn-dark my-5">
