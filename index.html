@@ -140,18 +140,56 @@
 
     <p>SIGNED by the supplier</p>
     <p class="fw-bold">Bico Noriss Hamalah</p>
-    <canvas class="signature-canvas" id="suppliersign"></canvas><br>
-    <button class="btn btn-primary notprintable" onclick="clearSupplier()">clear</button>
+    <button class="btn btn-primary notprintable" data-bs-toggle="modal" data-bs-target="#supplierModal">sign</button><br>
+    <img src="" alt="" id="supplierSignatureImage">
+
+    <div class="modal fade" id="supplierModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">Supplier signature</div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <canvas class="signature-canvas" id="suppliersign"></canvas><br>
+                    <button class="btn btn-primary notprintable" onclick="clearSupplier()">clear</button>
+                    <button class="btn btn-primary" onclick="savesupplierImage()" data-bs-dismiss="modal">save</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <p class="mt-5">SIGNED by the consumer</p>
-    <p class="fw-bold">Alex Mbatha</p>
-    <canvas class="signature-canvas" id="consumersign"></canvas><br>
-    <button class="btn btn-primary notprintable" onclick="clearConsumer()">clear</button>
+    <p class="fw-bold">{{request.user.first_name}} {{request.user.last_name}}</p>
+    <button class="btn btn-primary notprintable" data-bs-toggle="modal" data-bs-target="#consumerModal">sign</button><br>
+    <img src="" alt="" id="consumerSignatureImage">
+
+    <div class="modal fade" id="consumerModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="modal-title">Consumer signature</div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <canvas class="signature-canvas" id="consumersign"></canvas><br>
+                    <button class="btn btn-primary notprintable" onclick="clearConsumer()">clear</button>
+                    <button class="btn btn-primary" onclick="saveconsumerImage()" data-bs-dismiss="modal">save</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <p class="fw-bold">Drawn by:</p>
     <p>Bico Noriss Hamalah, <br>P.O. Box 5824-00200,</p>
     <p class="fw-bold">Nairobi.</p>
     <button class="btn btn-dark notprintable" onclick="window.print()">Save copy</button>
+    <form action="" method="post" class="notprintable" id="submitSignatures">
+        {% csrf_token %}
+        <input type="hidden" name="suppliersignInput" style="display: none;" id="suppliersignInput">
+        <input type="hidden" name="consumersignInput" style="display: none;" id="consumersignInput">
+        <input type="submit" value="Confirm" class="btn btn-dark my-5">
+    </form>
 </div>
 
 <script>
@@ -159,7 +197,31 @@
     const consumercanvas = document.getElementById("consumersign")
     const supplierctx = suppliercanvas.getContext("2d")
     const consumerctx = consumercanvas.getContext("2d")
+    const suppliersignImage = document.getElementById("supplierSignatureImage")
+    const consumersignImage = document.getElementById("consumerSignatureImage")
     let writingMode = false
+
+    const savesupplierImage = () => {
+        signone = suppliercanvas.toDataURL('image/png')
+        suppliersignImage.src = signone
+        suppliersignImage.height = suppliercanvas.height
+        suppliersignImage.width = suppliercanvas.width
+
+        const suppliersignInput = document.getElementById("suppliersignInput")
+        suppliersignInput.value = signone
+        console.log(suppliersignInput.value)
+    }
+
+    const saveconsumerImage = () => {
+        signone = consumercanvas.toDataURL()
+        consumersignImage.src = signone
+        consumersignImage.height = suppliercanvas.height
+        consumersignImage.width = suppliercanvas.width
+
+        const consumersignInput = document.getElementById("consumersignInput")
+        consumersignInput.value = signone
+        console.log(consumersignInput.value)
+    }
 
     const clearSupplier = () => {
         supplierctx.clearRect(0, 0, suppliercanvas.width, suppliercanvas.height)
@@ -225,5 +287,6 @@
     consumercanvas.addEventListener("pointerup", setPointerUp, {passive: true})
     consumercanvas.addEventListener("pointermove", consumerPointerMove, {passive: true})
 </script>
+
 </body>
 </html>
