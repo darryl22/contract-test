@@ -281,11 +281,11 @@
     consumerctx.lineJoin = consumerctx.lineCap = "round"
 
     suppliercanvas.addEventListener("pointerdown", supplierPointerDown, {passive: true})
-    suppliercanvas.addEventListener("ontouchstart", supplierPointerDown, {passive: true})
+    suppliercanvas.addEventListener("touchstart", supplierPointerDown, {passive: true})
     suppliercanvas.addEventListener("pointerup", setPointerUp, {passive: true})
-    suppliercanvas.addEventListener("ontouchend", setPointerUp, {passive: true})
+    suppliercanvas.addEventListener("touchend", setPointerUp, {passive: true})
     suppliercanvas.addEventListener("pointermove", supplierPointerMove, {passive: true})
-    suppliercanvas.addEventListener("ontouchmove", supplierPointerMove, {passive: true})
+    suppliercanvas.addEventListener("touchmove", supplierPointerMove, {passive: true})
 
 
     consumercanvas.addEventListener("pointerdown", consumerPointerDown, {passive: true})
