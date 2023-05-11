@@ -227,8 +227,14 @@
     }
 
     const gettargetPosition = (event) => {
-        positionX = event.clientX - event.target.getBoundingClientRect().x
-        positionY = event.clientY - event.target.getBoundingClientRect().y
+        console.log(event.type)
+        if (event.type === "touchmove"){
+            positionX = event.touches[0].clientX - event.target.getBoundingClientRect().x
+            positionY = event.touches[0].clientY - event.target.getBoundingClientRect().y
+        }else{
+            positionX = event.clientX - event.target.getBoundingClientRect().x
+            positionY = event.clientY - event.target.getBoundingClientRect().y
+        }
 
         return [positionX, positionY]
     }
@@ -275,12 +281,19 @@
     consumerctx.lineJoin = consumerctx.lineCap = "round"
 
     suppliercanvas.addEventListener("pointerdown", supplierPointerDown, {passive: true})
+    suppliercanvas.addEventListener("ontouchstart", supplierPointerDown, {passive: true})
     suppliercanvas.addEventListener("pointerup", setPointerUp, {passive: true})
+    suppliercanvas.addEventListener("ontouchend", setPointerUp, {passive: true})
     suppliercanvas.addEventListener("pointermove", supplierPointerMove, {passive: true})
+    suppliercanvas.addEventListener("ontouchmove", supplierPointerMove, {passive: true})
+
 
     consumercanvas.addEventListener("pointerdown", consumerPointerDown, {passive: true})
+    suppliercanvas.addEventListener("ontouchstart", consumerPointerDown, {passive: true})
     consumercanvas.addEventListener("pointerup", setPointerUp, {passive: true})
+    suppliercanvas.addEventListener("ontouchend", setPointerUp, {passive: true})
     consumercanvas.addEventListener("pointermove", consumerPointerMove, {passive: true})
+    suppliercanvas.addEventListener("ontouchmove", consumerPointerMove, {passive: true})
 </script>
 
 </body>
