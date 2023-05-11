@@ -204,7 +204,7 @@
 
         const suppliersignInput = document.getElementById("suppliersignInput")
         suppliersignInput.value = signone
-        console.log(suppliersignInput.value)
+        clearSupplier()
     }
 
     const saveconsumerImage = () => {
@@ -216,6 +216,7 @@
         const consumersignInput = document.getElementById("consumersignInput")
         consumersignInput.value = signone
         console.log(consumersignInput.value)
+        clearConsumer()
     }
 
     const clearSupplier = () => {
@@ -289,11 +290,11 @@
 
 
     consumercanvas.addEventListener("pointerdown", consumerPointerDown, {passive: true})
-    suppliercanvas.addEventListener("ontouchstart", consumerPointerDown, {passive: true})
+    consumercanvas.addEventListener("touchstart", consumerPointerDown, {passive: true})
     consumercanvas.addEventListener("pointerup", setPointerUp, {passive: true})
-    suppliercanvas.addEventListener("ontouchend", setPointerUp, {passive: true})
+    consumercanvas.addEventListener("touchend", setPointerUp, {passive: true})
     consumercanvas.addEventListener("pointermove", consumerPointerMove, {passive: true})
-    suppliercanvas.addEventListener("ontouchmove", consumerPointerMove, {passive: true})
+    consumercanvas.addEventListener("touchmove", consumerPointerMove, {passive: true})
 </script>
 
 </body>
